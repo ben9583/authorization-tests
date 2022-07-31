@@ -10,7 +10,7 @@ function Register() {
     let register = () => {
         setStatusColor("#ffffff")
         setStatusText("Submitting...")
-        fetch("http://localhost:3000/register", {
+        fetch("http://" + window.location.href.split('/')[2] + "/register", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"

@@ -6,7 +6,7 @@ function User(props: any) {
 
     const id = window.location.href.split("/")[4]
 
-    useEffect(() => {fetch('http://localhost:3000/getProfile?id=' + id).then(res => {
+    useEffect(() => {fetch('http://' + window.location.href.split('/')[2] + '/getProfile?id=' + id).then(res => {
         if(res.status !== 200) {
             setLoaded(true)
         } else {

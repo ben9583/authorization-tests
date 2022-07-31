@@ -10,7 +10,7 @@ function Profile({ user }: { user: any }) {
     let update = () => {
         setStatusColor("#ffffff")
         setStatusText("Submitting...")
-        fetch("http://localhost:3000/setProfile", {
+        fetch("http://" + window.location.href.split('/')[2] + "/setProfile", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
@@ -32,7 +32,7 @@ function Profile({ user }: { user: any }) {
         })
     }
 
-    useEffect(() => {fetch('http://localhost:3000/getProfile?id=' + user.id).then(res => {
+    useEffect(() => {fetch('http://' + window.location.href.split('/')[2] + '/getProfile?id=' + user.id).then(res => {
         if(res.status === 200) {
             res.json().then(body => {
                 setName(body.name)

@@ -4,7 +4,7 @@ function Users() {
     let [ users, setUsers ] = useState([{}]) as [ any[], React.Dispatch<React.SetStateAction<any[]>> ]
 
     useEffect(() => {
-        fetch('http://localhost:3000/getUsers').then(res => {
+        fetch('http://' + window.location.href.split('/')[2] + '/getUsers').then(res => {
             if(res.status !== 200) {
                 return
             }

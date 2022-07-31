@@ -10,7 +10,7 @@ function Login() {
     let login = () => {
         setStatusColor("#ffffff")
         setStatusText("Submitting...")
-        fetch("http://localhost:3000/login", {
+        fetch("http://" + window.location.href.split('/')[2] + "/login", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
@@ -32,7 +32,7 @@ function Login() {
     }
 
     useEffect(() => {
-        fetch('http://localhost:3000/verify', {
+        fetch('http://' + window.location.href.split('/')[2] + '/verify', {
             method: 'POST'
         }).then(res => {
             res.json().then(body => {
