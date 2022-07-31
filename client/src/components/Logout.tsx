@@ -1,5 +1,5 @@
 function Logout() {
-    fetch('http://' + window.location.href.split('/')[2] + '/logout', {
+    fetch('/logout', {
         method: 'POST'
     }).then(_ => {
         window.location.href = '/'

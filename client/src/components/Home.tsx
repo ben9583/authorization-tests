@@ -1,7 +1,7 @@
 function Home({loggedIn, content} : {loggedIn: boolean, content: any}) {
     return (
         <div className="Home">
-            <h1>Authentication Tests</h1>
+            <h1>Authorization Tests</h1>
             {
                 loggedIn ?
                     <p>Welcome, {content.username}. <a href={"/user/" + content.id}>View</a> or <a href="/profile">edit</a> your profile or <a href="/logout">log out</a>.</p> 

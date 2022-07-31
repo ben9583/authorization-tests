@@ -2,10 +2,8 @@ interface User {
     id: number;
     username: string;
     hash: string;
-    profile: {
-        name: string;
-        bio: string;
-    }
+    name: string;
+    bio: string;
 }
 
 interface Token {

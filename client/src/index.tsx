@@ -5,7 +5,7 @@ import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-fetch('http://' + window.location.href.split('/')[2] + '/verify', {
+fetch('/verify', {
     method: 'POST'
 }).then(res => {
     res.json().then(body => {

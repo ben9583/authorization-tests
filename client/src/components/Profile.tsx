@@ -32,7 +32,7 @@ function Profile({ user }: { user: any }) {
         })
     }
 
-    useEffect(() => {fetch('http://' + window.location.href.split('/')[2] + '/getProfile?id=' + user.id).then(res => {
+    useEffect(() => {fetch('/getProfile?id=' + user.id).then(res => {
         if(res.status === 200) {
             res.json().then(body => {
                 setName(body.name)
