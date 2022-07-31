@@ -2,6 +2,18 @@ interface User {
     id: number;
     username: string;
     hash: string;
+    profile: {
+        name: string;
+        bio: string;
+    }
 }
 
-export { User }
+interface Token {
+    id: number;
+    name: string;
+    iat: number;
+    exp: number;
+    iss: string;
+}
+
+export { User, Token }

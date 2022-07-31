@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Login() {
     let [ username, setUsername ] = useState("")
@@ -25,21 +25,31 @@ function Login() {
                     setStatusColor("#ff0000")
                     setStatusText(body.error)
                 } else {
-                    setStatusColor("#00ff00")
-                    setStatusText("Success! Here is your token: " + body.token)
+                    window.location.href = "/"
                 }
             })
         })
     }
 
+    useEffect(() => {
+        fetch('http://localhost:3000/verify', {
+            method: 'POST'
+        }).then(res => {
+            res.json().then(body => {
+                if(body.success) {
+                    window.location.href = "/"
+                }
+            })
+        })
+    }, [])
+
     return (
         <div className="Login">
-            <form action="http://localhost:3000/login" method="post">
-                <input name="username" type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)}/>
-                <input name="password" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-                <button type="button" onClick={login}>Login</button>
-                <p style={{color: statusColor, width: '50%', position: 'relative', left: '25%', overflowWrap: 'break-word'}}>{statusText}</p>
-            </form>
+            <h1>Login</h1>
+            <input name="username" type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)}/><br />
+            <input name="password" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} /><br />
+            <button type="button" onClick={login}>Login</button><br />
+            <p style={{color: statusColor, width: '50%', position: 'relative', left: '25%', overflowWrap: 'break-word'}}>{statusText}</p>
         </div>
     )
 }

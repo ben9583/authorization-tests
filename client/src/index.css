@@ -12,6 +12,11 @@ code {
         monospace;
 }
 
+a {
+    text-decoration: none;
+    color: #0070f3;
+}
+
 .App {
     text-align: center;
 }
