@@ -14,9 +14,13 @@ const app = express()
 
 app.use(express.json())
 
-let verifyTokenMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    verifyToken(req).then(user => {
-        if(!user) {
+let verifyTokenMiddleware = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    verifyToken(req).then((user) => {
+        if (!user) {
             res.status(401).send('Unauthorized')
             return
         }
@@ -34,4 +38,6 @@ app.post('/register', register)
 app.post('/login', login)
 app.post('/logout', logout)
 
-app.listen(PORT, () => console.log(`Authorization Tests server listening on port ${PORT}`))
+app.listen(PORT, () =>
+    console.log(`Authorization Tests server listening on port ${PORT}`)
+)

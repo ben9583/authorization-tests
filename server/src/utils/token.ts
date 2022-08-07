@@ -13,7 +13,7 @@ let verifyToken = async (req: Request) => {
     }
 
     const cookies = cookie.split('; ')
-    const token = cookies.find(c => c.startsWith('token='))
+    const token = cookies.find((c) => c.startsWith('token='))
     if (!token) {
         console.log('No token')
         return false
@@ -21,26 +21,28 @@ let verifyToken = async (req: Request) => {
 
     const tokenValue = token.split('=')[1]
 
-    let decoded: Token;
+    let decoded: Token
     try {
-        decoded = jwt.verify(tokenValue, crypto.SECRET, {issuer: "ben9583/authorization-tests"}) as Token
+        decoded = jwt.verify(tokenValue, crypto.SECRET, {
+            issuer: 'ben9583/authorization-tests',
+        }) as Token
     } catch (e) {
         console.log('Invalid token')
         return false
     }
 
-    if(decoded.exp < Date.now() / 1000) {
+    if (decoded.exp < Date.now() / 1000) {
         // Token expired; use refresh token later
         console.log('Token expired')
         return false
     }
 
     let user = await redis.getUser(decoded.id)
-    if(Object.keys(user).length == 0 || isNaN(user.id)) {
+    if (Object.keys(user).length == 0 || isNaN(user.id)) {
         console.log('User not found')
         return false
     }
-    return {user: user as User, token: decoded as Token}
+    return { user: user as User, token: decoded as Token }
 }
 
 export default verifyToken

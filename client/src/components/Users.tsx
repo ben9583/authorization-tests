@@ -1,31 +1,32 @@
 import { useEffect, useState } from 'react'
 
 function Users() {
-    let [ users, setUsers ] = useState([{}]) as [ any[], React.Dispatch<React.SetStateAction<any[]>> ]
+    let [users, setUsers] = useState([{}]) as [
+        any[],
+        React.Dispatch<React.SetStateAction<any[]>>
+    ]
 
     useEffect(() => {
-        fetch('/getUsers').then(res => {
-            if(res.status !== 200) {
+        fetch('/getUsers').then((res) => {
+            if (res.status !== 200) {
                 return
             }
-            res.json().then(body => {
+            res.json().then((body) => {
                 setUsers(body)
             })
         })
     }, [])
-    
+
     return (
         <div className="Users">
             <h1>Users</h1>
-            {
-                users.map(user => {
-                    return (
-                        <div key={user.id}>
-                            <a href={'/user/' + user.id}>{user.username}</a>
-                        </div>
-                    )
-                })
-            }
+            {users.map((user) => {
+                return (
+                    <div key={user.id}>
+                        <a href={'/user/' + user.id}>{user.username}</a>
+                    </div>
+                )
+            })}
         </div>
     )
 }

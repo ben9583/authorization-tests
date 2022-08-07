@@ -1,7 +1,7 @@
 function Logout() {
     fetch('/logout', {
-        method: 'POST'
-    }).then(_ => {
+        method: 'POST',
+    }).then((_) => {
         window.location.href = '/'
     })
 

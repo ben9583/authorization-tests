@@ -6,10 +6,10 @@ import App from './App'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 fetch('/verify', {
-    method: 'POST'
-}).then(res => {
-    res.json().then(body => {
-        if(body.success) {
+    method: 'POST',
+}).then((res) => {
+    res.json().then((body) => {
+        if (body.success) {
             root.render(
                 <React.StrictMode>
                     <App loggedIn={true} content={body.content} />
@@ -18,7 +18,7 @@ fetch('/verify', {
         } else {
             root.render(
                 <React.StrictMode>
-                    <App loggedIn={false} content='' />
+                    <App loggedIn={false} content="" />
                 </React.StrictMode>
             )
         }

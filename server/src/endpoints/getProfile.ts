@@ -3,7 +3,7 @@ import redis from '../utils/redis.js'
 
 let getProfile = (req: Request, res: Response) => {
     res.header('Content-Type', 'application/json')
-    if(!req.query.id) {
+    if (!req.query.id) {
         res.status(400)
         res.send({
             error: 'Bad Request',
@@ -11,7 +11,7 @@ let getProfile = (req: Request, res: Response) => {
         return
     }
     let id = req.query.id.toString()
-    if(!id || isNaN(parseInt(id))) {
+    if (!id || isNaN(parseInt(id))) {
         res.status(400)
         res.send({
             error: 'Bad Request',
@@ -19,24 +19,27 @@ let getProfile = (req: Request, res: Response) => {
         return
     }
 
-    redis.getUserProperties(parseInt(id), ['username', 'name', 'bio']).then(user => {
-        if(!user) {
-            res.status(400)
-            res.send({
-                error: 'User not found',
-            })
-            return
-        }
+    redis
+        .getUserProperties(parseInt(id), ['username', 'name', 'bio'])
+        .then((user) => {
+            if (!user) {
+                res.status(400)
+                res.send({
+                    error: 'User not found',
+                })
+                return
+            }
 
-        res.status(200)
-        res.send(user)
-    }).catch(e => {
-        res.status(500)
-        res.send({
-            error: 'Internal Server Error',
+            res.status(200)
+            res.send(user)
         })
-        console.log('Redis error:', e)
-    })
+        .catch((e) => {
+            res.status(500)
+            res.send({
+                error: 'Internal Server Error',
+            })
+            console.log('Redis error:', e)
+        })
 }
 
-export default getProfile;
+export default getProfile
