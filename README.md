@@ -35,4 +35,3 @@ yarn install
 ```
 
 Once you're done installing, you can use `yarn start` from the root directory which should run the client and server development scripts at the same time with the necessary proxying handled automatically.
-```
