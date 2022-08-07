@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Authorization Tests
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is just me experimenting with methods of authorization, such as JWTs. The project has an NodeJS server component and a React frontend making use of redis as a database.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This project represents a full-stack web app that makes use of secure authentication practices I decided to make for practice. Right now, I'm just using a JWT stored in `document.cookie` with `HttpOnly` and `SameSite=strict` meant to address XSS and CSRF respectively. There are of course other ways to go about authentication and even JWTs (notably using the `Authorization: Bearer [token]` header), but I found this was the easiest way to develop alongside create-react-app.
 
-### `yarn start`
+### Frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The frontend makes use of [create-react-app](https://github.com/facebook/create-react-app) for building. During development it's hosted on port 3000 and proxies to the backend on port 3001, though of course during production, the client would be a static deliverable and only the server would need to be hosted.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Server
 
-### `yarn test`
+This project uses [express](https://github.com/expressjs/express) to expose the API endpoints used to interface with the users database, such as being able to register, login, view profiles, etc. This is also where JWTs for the users are created and verified as requests are being processed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Database
 
-### `yarn build`
+Although I could use a more suitable database system like Postgres or MongoDB, I chose to just use [Redis](https://github.com/redis/redis) as I already had it installed and it was quick enough for me to setup that I didn't have to change much from what I started with. Because of this, you'll need to install and startup Redis yourself if you plan on trying this out.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Development
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+There are a few prerequisites you'll need to get this project working: NodeJS v16, redis, nodemon, and typescript. Be sure to download and install the former two and `npm i -g` the latter.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once you've got these tools installed, be sure to install the requisite `node_modules`:
 
-### `yarn eject`
+```sh
+git clone https://github.com/ben9583/authorization-tests
+cd authorization-tests
+yarn install  # installs "concurrently" for developing server and client at the same time as well as prettier
+cd client
+yarn install
+cd ../server
+yarn install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once you're done installing, you can use `yarn start` from the root directory which should run the client and server development scripts at the same time with the necessary proxying handled automatically.
+```
